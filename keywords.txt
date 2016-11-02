@@ -1,0 +1,10 @@
+Melody 		KEYWORD1
+playMelody 	KEYWORD2
+muteOn 		KEYWORD2
+MuteOff 	KEYWORD2
+setMuteMode 	KEYWORD2
+XInput 		KEYWORD1
+readButtons 	KEYWORD2
+printButtons 	KEYWORD2
+XButton 	KEYWORD2
+XButtonId 	KEYWORD2
