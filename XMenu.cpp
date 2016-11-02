@@ -3,7 +3,14 @@
 void displayMenu(XMenu menu, int choice = 1){
     int i;
     Serial.println(menu.title);
-    if(choice == 1){
+    if(menu.nbItems == 2){
+       
+        Serial.println(menu.items[choice]);
+        Serial.print("->");
+        Serial.println(menu.items[1-choice]);  
+      
+    }else{
+      if(choice == 1){
         Serial.println(menu.items[menu.nbItems-1]);
         Serial.print("->");
         Serial.println(menu.items[0]);
@@ -19,6 +26,8 @@ void displayMenu(XMenu menu, int choice = 1){
         Serial.println(menu.items[choice-1]);
         Serial.println(menu.items[choice]);
     }
+    }
+    
 }
 
 
