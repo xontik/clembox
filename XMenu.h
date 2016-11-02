@@ -10,7 +10,7 @@ typedef struct{
   void (*calbackFct)(uint8_t);
 } XMenu;
 
-void displayMenu(XMenu m);
+void displayMenu(XMenu m, int choice);
 
   
 

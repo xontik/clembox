@@ -138,10 +138,12 @@ void setup() {
   /* ------- choix pour les menu ----- */
   choice = 1;
 }
-
-void loop() {
+void loop(){
+  doMenu(mainMenu);
+}
+void doMenu(XMenu menu) {
   XButtonId button;
-  displayMenu(mainMenu);
+  displayMenu(menu,choice);
   Serial.print("Choice : ");
   Serial.println(choice);
   Serial.println("Wait relache boutons");
@@ -164,18 +166,18 @@ void loop() {
       choice--;
     break;
     case BT_LEFT:
-      // faire quitter le menu
+      return;
     break;
     case BT_RIGHT:
-      // faire valider 
+      menu.calbackFct(choice);
     break;
   }
-  Serial.print(mainMenu.nbItems);
-  if(choice > mainMenu.nbItems){
+  
+  if(choice > menu.nbItems){
     choice = 1;
   }
   if(choice < 1){
-    choice = mainMenu.nbItems;
+    choice = menu.nbItems;
   }
   
 }
@@ -296,7 +298,10 @@ void doStage(int v){
 void doMainMenu(uint8_t selected){
   Serial.println("in doMainMenu()");
   if(selected == 1){
-    displayMenu(subMenu);
+    choice = 1;
+    displayMenu(subMenu,choice);
+  }else{
+    Serial.print("PAS 1");
   }
   
 }
