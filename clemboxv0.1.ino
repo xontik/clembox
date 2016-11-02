@@ -39,7 +39,6 @@ XInput input(buttons,6);
 /* input Pins */
 byte lightSensorPin = A1;
 
-
 /* output Pins */
 byte piezoMelodyPin = 48;
 /* EEPROM */
@@ -97,6 +96,8 @@ static const XMenu subMenu = {
   4,
   &doSubMenu
 };
+/* ------- choix pour les menu ----- */
+int choice;
 
 void setup() {
   /* Initialisation des pin --------------------------------------*/
@@ -134,11 +135,15 @@ void setup() {
   #ifdef TESTSTAGE
   doStage(TESTSTAGE);
   #endif
+  /* ------- choix pour les menu ----- */
+  choice = 1;
 }
 
 void loop() {
   XButtonId button;
   displayMenu(mainMenu);
+  Serial.print("Choice : ");
+  Serial.println(choice);
   Serial.println("Wait relache boutons");
   while (input.readButtons() != BT_NONE);
   lcd.clear();
@@ -151,28 +156,27 @@ void loop() {
   while (input.readButtons() != BT_NONE);
   switch(button){
     case BT_UP:
-      lcd.print("UP");
-      play();
+      Serial.println("++");
+      choice++;
     break;
     case BT_DOWN:
-      lcd.print("DOWN");
+      Serial.println("++");
+      choice--;
     break;
     case BT_LEFT:
-      lcd.print("LEFT");
+      // faire quitter le menu
     break;
     case BT_RIGHT:
-      lcd.print("RIGHT");
-    break;
-    case BT_BACK:
-      lcd.print("BACK");
-    break;
-    case BT_VALID:
-      lcd.print("VALID");
+      // faire valider 
     break;
   }
-  
-  
-  
+  Serial.print(mainMenu.nbItems);
+  if(choice > mainMenu.nbItems){
+    choice = 1;
+  }
+  if(choice < 1){
+    choice = mainMenu.nbItems;
+  }
   
 }
 

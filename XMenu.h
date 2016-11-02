@@ -11,6 +11,7 @@ typedef struct{
 } XMenu;
 
 void displayMenu(XMenu m);
+
   
 
 #endif
