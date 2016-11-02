@@ -13,7 +13,8 @@ void XInput::begin(){
   }
 }
 void XInput::printButtons(){
-  Serial.println("Buttons states :");
+  Serial.print("Buttons states at");
+  Serial.println(millis());
   int i;
   for(i=0;i<_nbButtons;i++){
     Serial.println(digitalRead(this->_buttons[i].pin));
@@ -40,11 +41,12 @@ XButtonId XInput::readButtons(){
         b=this->_buttons[i].id;
       }
     }
+    if(nbTrue != 1){
+      return BT_NONE;
+    }else{
+      return b;
+    }
   }
-  if(nbTrue != 1){
-    return BT_NONE;
-  }else{
-    return b;
-  }
+
 }
 

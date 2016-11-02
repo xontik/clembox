@@ -105,6 +105,7 @@ void setup() {
   /* Initialisation des composant --------------------------------------*/
   /* Serial ------------------------------------------------------------*/
   Serial.begin(9600);
+  Serial.setTimeout(0);
   Serial.println("<-- Power on ! -->");
   /* Buttons--------------------------------------*/
   input.begin();
@@ -139,47 +140,52 @@ void setup() {
   choice = 1;
 }
 void loop(){
+  Serial.println("Loop");
   doMenu(mainMenu);
 }
 void doMenu(XMenu menu) {
   XButtonId button;
-  displayMenu(menu,choice);
-  Serial.print("Choice : ");
-  Serial.println(choice);
-  Serial.println("Wait relache boutons");
-  while (input.readButtons() != BT_NONE);
-  lcd.clear();
-  Serial.println("Attente appuie btn");
-  while ((button = input.readButtons()) == BT_NONE);
-  
-  delay(30);
-  Serial.println("Fin anti rebons");
-  Serial.println("Attente relache tout les boutons");
-  while (input.readButtons() != BT_NONE);
-  switch(button){
-    case BT_UP:
-      Serial.println("++");
-      choice++;
-    break;
-    case BT_DOWN:
-      Serial.println("++");
-      choice--;
-    break;
-    case BT_LEFT:
-      return;
-    break;
-    case BT_RIGHT:
-      menu.calbackFct(choice);
-    break;
+  bool keephere = true;
+  Serial.print("Welcome in the menu :");
+  Serial.println(menu.title);
+  Serial.println("===========================");
+  while(keephere){
+    displayMenu(menu,choice);
+   
+    // Wait relache boutons 
+    while (input.readButtons() != BT_NONE);
+    lcd.clear();
+    // Attente appuie btn 
+    while ((button = input.readButtons()) == BT_NONE);
+    
+    delay(30);
+    //Fin anti rebons 
+    // Attente relache tout les boutons
+    while (input.readButtons() != BT_NONE);
+    //gestions des differents cas
+    switch(button){
+      case BT_UP:
+        Serial.println("++");
+        choice++;
+      break;
+      case BT_DOWN:
+        Serial.println("++");
+        choice--;
+      break;
+      case BT_LEFT:
+        keephere = false;
+      break;
+      case BT_RIGHT:
+        menu.calbackFct(choice);
+      break;
+    }
+    if(choice > menu.nbItems){
+      choice = 1;
+    }
+    if(choice < 1){
+      choice = menu.nbItems;
+    }
   }
-  
-  if(choice > menu.nbItems){
-    choice = 1;
-  }
-  if(choice < 1){
-    choice = menu.nbItems;
-  }
-  
 }
 
 
@@ -299,7 +305,7 @@ void doMainMenu(uint8_t selected){
   Serial.println("in doMainMenu()");
   if(selected == 1){
     choice = 1;
-    displayMenu(subMenu,choice);
+    doMenu(subMenu);
   }else{
     Serial.print("PAS 1");
   }
