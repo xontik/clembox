@@ -45,16 +45,16 @@ byte piezoMelodyPin = 48;
 /*
  * 2 -> sound adress
  * 5 -> partie 1
- * 6 -> partie 2
- * 7 -> partie 3
  * 11 -> adress partie courante
  * 
+ * 
+ * -1 veut dire pas de partie enregistrer
  */
 /* reset EEPROM Pin */
 byte resetStagePin = 22;
 
 /* EEPROM Variable */
-int currentGameAdress = 10;
+
 int stageAdress = 5;
 int soundAdress = 2;
 byte tmpStageValue;
@@ -80,21 +80,37 @@ byte downArrow[8] = {B00000,B00100,B00100,B00100,B10101,B01110,B00100,};
 
 /* XMenu init*/
 void doMainMenu(uint8_t selected);
-void doSubMenu(uint8_t selected);
+void doPlayMenu(uint8_t selected);
+void doStatsMenu(uint8_t selected);
+void doOptionsMenu(uint8_t selected);
 
-static const char* mainMenuItems[] = { "MTest 1", "MTest 2", "MTest 3", "MTest 4"};
+static const char* mainMenuItems[] = { "Play", "Stats","Options"};
 static const XMenu mainMenu = {
   "Menu Principal",
   mainMenuItems,
-  4,
+  3,
   &doMainMenu
 };
-static const char* subMenuItems[] = { "Test 1", "Test 2", "Test 3", "Test 4"};
-static const XMenu subMenu = {
-  "Menu Secondaire",
-  subMenuItems,
-  4,
-  &doSubMenu
+static const char* playMenuItems[] = { "Jouer", "Recommencer", "Cheat"};
+static const XMenu playMenu = {
+  "Jouer",
+  playMenuItems,
+  3,
+  &doPlayMenu
+};
+static const char* statsMenuItems[] = { "Progression", "Best progression", "Nombre demarrage"};
+static const XMenu statsMenu = {
+  "Statistiques",
+  statsMenuItems,
+  3,
+  &doStatsMenu
+};
+static const char* optionsMenuItems[] = { "Audio", "Reset all"};
+static const XMenu optionsMenu = {
+  "Jouer",
+  optionsMenuItems,
+  2,
+  &doOptionsMenu
 };
 /* ------- choix pour les menu ----- */
 int choice;
@@ -302,17 +318,28 @@ void doStage(int v){
   }
 }
 void doMainMenu(uint8_t selected){
-  Serial.println("in doMainMenu()");
-  if(selected == 1){
-    choice = 1;
-    doMenu(subMenu);
-  }else{
-    Serial.print("PAS 1");
-  }
   
+  choice = 1;
+  switch(selected){
+    case 1://playmenu
+      doMenu(playMenu);
+      break;
+    case 2:
+      doMenu(statsMenu);
+      break;
+    case 3:
+      doMenu(optionsMenu);
+      break;
+  }  
 }
-void doSubMenu(uint8_t selected){
-  
+void doPlayMenu(uint8_t selected){
+    
+}
+void doStatsMenu(uint8_t selected){
+    return;
+}
+void doOptionsMenu(uint8_t selected){
+    
 }
 
 
