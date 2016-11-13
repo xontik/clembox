@@ -39,6 +39,8 @@ XButtonId XInput::readButtons(){
       if(digitalRead(this->_buttons[i].pin)){
         nbTrue++;
         b=this->_buttons[i].id;
+        Serial.print("Button pin : ");
+        Serial.println(this->_buttons[i].pin);
       }
     }
     if(nbTrue != 1){
