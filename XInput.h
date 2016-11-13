@@ -7,7 +7,6 @@ typedef enum {
   BT_DOWN,
   BT_LEFT,
   BT_RIGHT,
-  BT_BACK,
   BT_VALID,
   BT_NONE
 } XButtonId;

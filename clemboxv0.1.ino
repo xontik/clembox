@@ -22,13 +22,12 @@
 XButton buttons[] = {
   {24,BT_UP},
   {25,BT_DOWN},
-  {26,BT_LEFT},
-  {27,BT_RIGHT},
-  {28,BT_BACK},
-  {29,BT_VALID},
+  {23,BT_LEFT},
+  {22,BT_RIGHT},
+  {27,BT_VALID}
   
   };
-XInput input(buttons,6);
+XInput input(buttons,5);
 
 
 /* input Pins */
@@ -187,6 +186,7 @@ void doMenu(XMenu menu) {
         keephere = false;
       break;
       case BT_RIGHT:
+      case BT_VALID:
         menu.calbackFct(choice);
       break;
     }
