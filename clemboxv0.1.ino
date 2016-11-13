@@ -1,7 +1,5 @@
 
 #include <Streaming.h>
-
-
 #include "Melody.h"
 #include "XInput.h"
 #include <EEPROM.h>
@@ -13,10 +11,7 @@
 #define WIN 3
 #define START 1
 
-#define ARROW_UP 2
-#define ARROW_DOWN 3
-#define ARROW_LEFT 1
-#define ARROW_RIGHT 0
+
 //#define TESTSTAGE 2
 
 /*
@@ -61,6 +56,8 @@ byte tmpStageValue;
 byte stageValue;
 bool stayInThisStage = true;
 
+
+
 /* Melodys */
 int sucessStageMel[] = {NOTE_F4,NOTE_FS4,NOTE_G4,NOTE_GS4,NOTE_END};
 int sucessStageDuration[] = {6, 6, 6, 2};
@@ -86,7 +83,7 @@ void doOptionsMenu(uint8_t selected);
 
 static const char* mainMenuItems[] = { "Play", "Stats","Options"};
 static const XMenu mainMenu = {
-  "Menu Principal",
+  "Principal",
   mainMenuItems,
   3,
   &doMainMenu
@@ -107,13 +104,11 @@ static const XMenu statsMenu = {
 };
 static const char* optionsMenuItems[] = { "Audio", "Reset all"};
 static const XMenu optionsMenu = {
-  "Jouer",
+  "Options",
   optionsMenuItems,
   2,
   &doOptionsMenu
 };
-/* ------- choix pour les menu ----- */
-int choice;
 
 void setup() {
   /* Initialisation des pin --------------------------------------*/
@@ -153,7 +148,6 @@ void setup() {
   doStage(TESTSTAGE);
   #endif
   /* ------- choix pour les menu ----- */
-  choice = 1;
 }
 void loop(){
   Serial.println("Loop");
@@ -165,12 +159,13 @@ void doMenu(XMenu menu) {
   Serial.print("Welcome in the menu :");
   Serial.println(menu.title);
   Serial.println("===========================");
+  int choice =1;
   while(keephere){
-    displayMenu(menu,choice);
+    displayMenu(menu,&lcd,choice);
    
     // Wait relache boutons 
     while (input.readButtons() != BT_NONE);
-    lcd.clear();
+    
     // Attente appuie btn 
     while ((button = input.readButtons()) == BT_NONE);
     
@@ -185,7 +180,7 @@ void doMenu(XMenu menu) {
         choice++;
       break;
       case BT_DOWN:
-        Serial.println("++");
+        Serial.println("--");
         choice--;
       break;
       case BT_LEFT:
@@ -319,7 +314,7 @@ void doStage(int v){
 }
 void doMainMenu(uint8_t selected){
   
-  choice = 1;
+  
   switch(selected){
     case 1://playmenu
       doMenu(playMenu);
