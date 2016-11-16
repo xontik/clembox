@@ -4,6 +4,7 @@
 #include "Arduino.h"
 #include "XMenu.h"
 #include "XInput.h"
+#include <LiquidCrystal_I2C.h> 
 /* input Pins */
 extern byte lightSensorPin;
 
@@ -58,6 +59,6 @@ extern const XMenu statsMenu;
 extern const char* optionsMenuItems[];
 extern const XMenu optionsMenu;
 
-
+extern void doMenu(XMenu menu);
 #endif
 
