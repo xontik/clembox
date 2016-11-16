@@ -2,15 +2,12 @@
 #include <Arduino.h>
 
 XInput::XInput(XButton* b){
-  
-  this->_buttons = b;  
-}
-void XInput::begin(){
   int i=0;
   while(_buttons[i].pin != -1){
     pinMode(_buttons[i].pin, INPUT);
     i++;
   }
+  this->_buttons = b; 
 }
 void XInput::printButtons(){
   Serial.print("Buttons states at");
@@ -65,4 +62,13 @@ XButtonId XInput::readButtons(){
   }
 
 }
-
+XButton buttons[] = {
+  {24,BT_UP},
+  {25,BT_DOWN},
+  {23,BT_LEFT},
+  {22,BT_RIGHT},
+  {27,BT_VALID},
+  {-1,BT_NONE}
+  
+  };
+XInput input(buttons);

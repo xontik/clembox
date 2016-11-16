@@ -1,26 +1,18 @@
-
 #include <Streaming.h>
 #include "globals.h"
 #include "Melody.h"
 #include "XInput.h"
+#include "Menu.h"
+#include "stages.h"
 #include <EEPROM.h>
 #include <Wire.h> 
 #include <LiquidCrystal_I2C.h>
-#include "XMenu.h"
 
-#define WIN 3
-#define START 1
-
-XInput input(buttons);
-
-Melody mel(piezoMelodyPin,true);
-
-
-LiquidCrystal_I2C lcd(0x27,20,4);  
 
 
 
 void setup() {
+  
   /* Initialisation des pin --------------------------------------*/
   pinMode(resetStagePin,INPUT);
   /* Initialisation des composant --------------------------------------*/
@@ -28,8 +20,7 @@ void setup() {
   Serial.begin(9600);
   Serial.setTimeout(0);
   Serial.println("<-- Power on ! -->");
-  /* Buttons--------------------------------------*/
-  input.begin();
+
   /* LCD --------------------------------------*/
   lcd.begin();
   lcd.backlight();
@@ -61,7 +52,7 @@ void setup() {
 }
 void loop(){
   Serial.println("Loop");
-  doMenu(mainMenu);
+  mainMenu();
 }
 
 
@@ -102,47 +93,6 @@ void play(){
   }
 }
 
-void doMenu(XMenu menu) {
-  XButtonId button;
-  bool keephere = true;
-  int choice =1;
-  while(keephere){
-    displayMenu(menu,&lcd,choice);
-   
-    // Wait relache boutons 
-    while (input.readButtons() != BT_NONE);
-    
-    // Attente appuie btn 
-    while ((button = input.readButtons()) == BT_NONE);
-    
-    delay(30);
-    //Fin anti rebons 
-    // Attente relache tout les boutons
-    while (input.readButtons() != BT_NONE);
-    //gestions des differents cas
-    switch(button){
-      case BT_UP:
-        choice++;
-      break;
-      case BT_DOWN:
-        choice--;
-      break;
-      case BT_LEFT:
-        keephere = false;
-      break;
-      case BT_RIGHT:
-      case BT_VALID:
-        menu.calbackFct(choice);
-      break;
-    }
-    if(choice > menu.nbItems){
-      choice = 1;
-    }
-    if(choice < 1){
-      choice = menu.nbItems;
-    }
-  }
-}
 
 
 
@@ -152,54 +102,6 @@ void doMenu(XMenu menu) {
  * Composant mis en jeu : - bouton
  * Pins mis en jeu: - simpleButtonPin
  */
-void stage1(){
-  
-
-  lcd.clear();
-  lcd.setCursor(0,0);
-  lcd.print("Trouve le mega bouton !");
-  lcd.setCursor(0,2);
-  lcd.print("Et appuie dessus !");
-  while(stayInThisStage){
-      if(input.readButtons() == BT_VALID)
-        stayInThisStage = false;
-      
-      
-  }
-  stageValue++;
-  mel.playMelody(sucessStageMel,sucessStageDuration);
-  
-}
-/*
- * Etape : 2
- * But : Soulever la boite
- * Composant mis en jeu : - resistance lumineuse
- * Pins mis en jeu: - lumresitancepin
- */
-
-void stage2(){
-  int lightSensorValue;
-
-  lcd.clear();
-  lcd.setCursor(0,0);
-  lcd.print("La levitation est...");
-  lcd.setCursor(0,1);
-  lcd.print("... La solution !");
-  lcd.setCursor(0,3);
-  lcd.print("(A faire de jour !)");
-  
-  while(stayInThisStage){
-     lightSensorValue = analogRead(lightSensorPin);
-     Serial.print("Sensor value:");
-     Serial.println(lightSensorValue);
-     if(lightSensorValue >= 600){
-        stayInThisStage = false;
-     }
-    delay(100);
-  }
-  stageValue++;
-  mel.playMelody(sucessStageMel,sucessStageDuration);
-}
 void win(){
   lcd.clear();
   lcd.setCursor(7,1);
@@ -211,15 +113,3 @@ void win(){
   }
   
 }
-void doStage(int v){
-  switch(v){
-    case 1:
-      stage1();
-      break;
-    case 2:
-      stage2();
-      break;
-  }
-}
-
-

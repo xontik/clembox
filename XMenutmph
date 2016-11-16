@@ -1,0 +1,44 @@
+#ifndef XMENU_H
+#define XMENU_H
+#include <Arduino.h>
+#include <LiquidCrystal_I2C.h>
+#include "XInput.h"
+
+#define ARROW_UP 2
+#define ARROW_DOWN 3
+#define ARROW_LEFT 1
+#define ARROW_RIGHT 0
+
+
+
+typedef struct{
+  const char* title;
+  const char** items;
+  const uint8_t nbItems;
+  void (*calbackFct)(uint8_t);
+} XMenuStruct;
+
+class XMenu {
+  private:
+    XMenuStruct* _menu;
+    int _choice;
+  public:
+    void displayMenu();
+    void displayMenuS();
+    void doMenu();
+    void changeMenu(XMenuStruct* xms);
+    XMenu(XMenuStruct* xms);
+  
+};
+
+void doMainMenu(uint8_t selected);
+void doPlayMenu(uint8_t selected);
+void doStatsMenu(uint8_t selected);
+void doOptionsMenu(uint8_t selected);
+
+
+
+ 
+  
+
+#endif

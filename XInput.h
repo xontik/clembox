@@ -1,6 +1,7 @@
-#include <Arduino.h>
 #ifndef XINPOUT_H
 #define XINPOUT_H
+#include <Arduino.h>
+#include "globals.h"
 
 typedef enum {
   BT_UP,
@@ -15,10 +16,10 @@ typedef struct {
   int pin;
   XButtonId id;
 } XButton;
+
 class XInput{
   public:
     XInput(XButton but[]);
-    void begin();
     XButtonId readButtons(void);
     XButtonId buttonPushed(void);
     void printButtons();
@@ -27,5 +28,5 @@ class XInput{
     int _nbButtons;
     
 };
-
+extern XInput input;
 #endif
