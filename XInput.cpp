@@ -21,6 +21,19 @@ void XInput::printButtons(){
     i++;
   }
 }
+XButtonId XInput::buttonPushed(){
+  XButtonId btn;
+    while (readButtons() != BT_NONE);
+    
+    // Attente appuie btn 
+    while ((btn = readButtons()) == BT_NONE);
+    
+    delay(30);
+    //Fin anti rebons 
+    // Attente relache tout les boutons
+    while (readButtons() != BT_NONE);
+    return btn;
+}
 XButtonId XInput::readButtons(){
   int i;
   int nbTrue = 0;

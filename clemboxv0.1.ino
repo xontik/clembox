@@ -1,18 +1,20 @@
 
 #include <Streaming.h>
+#include "globals.h"
 #include "Melody.h"
 #include "XInput.h"
 #include <EEPROM.h>
 #include <Wire.h> 
 #include <LiquidCrystal_I2C.h>
 #include "XMenu.h"
-#include "globals.h"
+
 #define WIN 3
 #define START 1
 
 XInput input(buttons);
 
 Melody mel(piezoMelodyPin,true);
+
 
 LiquidCrystal_I2C lcd(0x27,20,4);  
 
@@ -61,52 +63,6 @@ void loop(){
   Serial.println("Loop");
   doMenu(mainMenu);
 }
-void doMenu(XMenu menu) {
-  XButtonId button;
-  bool keephere = true;
-  Serial.print("Welcome in the menu :");
-  Serial.println(menu.title);
-  Serial.println("===========================");
-  int choice =1;
-  while(keephere){
-    displayMenu(menu,&lcd,choice);
-   
-    // Wait relache boutons 
-    while (input.readButtons() != BT_NONE);
-    
-    // Attente appuie btn 
-    while ((button = input.readButtons()) == BT_NONE);
-    
-    delay(30);
-    //Fin anti rebons 
-    // Attente relache tout les boutons
-    while (input.readButtons() != BT_NONE);
-    //gestions des differents cas
-    switch(button){
-      case BT_UP:
-        Serial.println("++");
-        choice++;
-      break;
-      case BT_DOWN:
-        Serial.println("--");
-        choice--;
-      break;
-      case BT_LEFT:
-        keephere = false;
-      break;
-      case BT_RIGHT:
-      case BT_VALID:
-        menu.calbackFct(choice);
-      break;
-    }
-    if(choice > menu.nbItems){
-      choice = 1;
-    }
-    if(choice < 1){
-      choice = menu.nbItems;
-    }
-  }
-}
 
 
 void play(){
@@ -145,6 +101,50 @@ void play(){
     delay(500);
   }
 }
+
+void doMenu(XMenu menu) {
+  XButtonId button;
+  bool keephere = true;
+  int choice =1;
+  while(keephere){
+    displayMenu(menu,&lcd,choice);
+   
+    // Wait relache boutons 
+    while (input.readButtons() != BT_NONE);
+    
+    // Attente appuie btn 
+    while ((button = input.readButtons()) == BT_NONE);
+    
+    delay(30);
+    //Fin anti rebons 
+    // Attente relache tout les boutons
+    while (input.readButtons() != BT_NONE);
+    //gestions des differents cas
+    switch(button){
+      case BT_UP:
+        choice++;
+      break;
+      case BT_DOWN:
+        choice--;
+      break;
+      case BT_LEFT:
+        keephere = false;
+      break;
+      case BT_RIGHT:
+      case BT_VALID:
+        menu.calbackFct(choice);
+      break;
+    }
+    if(choice > menu.nbItems){
+      choice = 1;
+    }
+    if(choice < 1){
+      choice = menu.nbItems;
+    }
+  }
+}
+
+
 
 /*
  * Etape : 1
@@ -220,30 +220,6 @@ void doStage(int v){
       stage2();
       break;
   }
-}
-void doMainMenu(uint8_t selected){
-  
-  
-  switch(selected){
-    case 1://playmenu
-      doMenu(playMenu);
-      break;
-    case 2:
-      doMenu(statsMenu);
-      break;
-    case 3:
-      doMenu(optionsMenu);
-      break;
-  }  
-}
-void doPlayMenu(uint8_t selected){
-    
-}
-void doStatsMenu(uint8_t selected){
-    return;
-}
-void doOptionsMenu(uint8_t selected){
-    
 }
 
 
