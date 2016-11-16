@@ -20,6 +20,7 @@ class XInput{
     XInput(XButton but[]);
     void begin();
     XButtonId readButtons(void);
+    XButtonId buttonPushed(void);
     void printButtons();
   private:
     XButton *_buttons;
