@@ -1,3 +1,6 @@
+#ifndef MELODY_H
+#define MELODY_H
+
 /*************************************************
  * Public Constants
  *************************************************/
@@ -107,3 +110,4 @@ class Melody{
     bool _muteMode;
     unsigned int _pin;
 };
+#endif

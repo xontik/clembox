@@ -1,6 +1,6 @@
 #include "XMenu.h"
-#include <LiquidCrystal_I2C.h> 
-void displayMenu(XMenu menu, LiquidCrystal_I2C* lcd, int choice = 1){
+
+void displayMenu(XMenu menu, LiquidCrystal_I2C *lcd ,int choice = 1){
     int i;
     displayMenuS(menu,choice);    
     lcd->clear();
@@ -89,7 +89,5 @@ void displayMenuS(XMenu menu, int choice = 1){
     }
     
 }
-
-
 
 

@@ -1,23 +1,24 @@
 #include "XInput.h"
 #include <Arduino.h>
 
-XInput::XInput(XButton* b,int nbElem){
+XInput::XInput(XButton* b){
   
   this->_buttons = b;  
-  this->_nbButtons = nbElem;
 }
 void XInput::begin(){
-  int i;
-  for(i=0;i<_nbButtons;i++){
+  int i=0;
+  while(_buttons[i].pin != -1){
     pinMode(_buttons[i].pin, INPUT);
+    i++;
   }
 }
 void XInput::printButtons(){
   Serial.print("Buttons states at");
   Serial.println(millis());
-  int i;
-  for(i=0;i<_nbButtons;i++){
+  int i=0;
+  while(_buttons[i].pin != -1){
     Serial.println(digitalRead(this->_buttons[i].pin));
+    i++;
   }
 }
 XButtonId XInput::readButtons(){

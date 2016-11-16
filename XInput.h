@@ -12,12 +12,12 @@ typedef enum {
 } XButtonId;
 
 typedef struct {
-  unsigned int pin;
+  int pin;
   XButtonId id;
 } XButton;
 class XInput{
   public:
-    XInput(XButton but[],int nbElem);
+    XInput(XButton but[]);
     void begin();
     XButtonId readButtons(void);
     void printButtons();
