@@ -1,4 +1,7 @@
 #include "stages.h"
+
+void (*stageTab[2])() = {stage1,stage2};
+
 void stage1(){
   
 
@@ -13,8 +16,6 @@ void stage1(){
       
       
   }
-  stageValue++;
-  mel.playMelody(sucessStageMel,sucessStageDuration);
   
 }
 /*
@@ -44,18 +45,23 @@ void stage2(){
      }
     delay(100);
   }
-  stageValue++;
-  mel.playMelody(sucessStageMel,sucessStageDuration);
+
+  
+}
+void win(){
+  lcd.clear();
+  lcd.setCursor(7,1);
+  lcd.print("WIN!");
+  
+  while(1){
+    delay(500);
+    Serial.println("WIN");
+  }
+  
 }
 
 
-void doStage(int v){
-  switch(v){
-    case 1:
-      stage1();
-      break;
-    case 2:
-      stage2();
-      break;
-  }
+bool doStage(int v){
+  //ici mettre un while pour checker les bouton tout du long
+  stageTab[v-1]
 }

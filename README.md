@@ -8,5 +8,5 @@ Mon projet de boite à enigmes à base d'arduino
  - OK les appeler via play
  - voire ou faire des return 
  - faire fct openview
- -faire fct open
+ - faire fct open
  

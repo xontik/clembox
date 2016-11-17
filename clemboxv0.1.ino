@@ -2,6 +2,7 @@
 #include "globals.h"
 #include "Melody.h"
 #include "XInput.h"
+
 #include "Menu.h"
 #include "stages.h"
 #include <EEPROM.h>
@@ -56,60 +57,4 @@ void loop(){
 }
 
 
-void play(){
-  stayInThisStage = true; /* on repasse forcement a true pour le prochaine appel aune etape */
-  /*on compare la nouvelle valeur avec l'eeprom si changement on ecrit dans l'epprom */
-  tmpStageValue = EEPROM.read(stageAdress);
-  if(stageValue < tmpStageValue ){
-    stageValue = tmpStageValue;
-  }else if (stageValue != tmpStageValue){
-    EEPROM.write(stageAdress,stageValue);
-  }
 
-  Serial.print("Stage value : ");
-  Serial.println(stageValue);
-  
-  /* on renvoie sur la fonction gerant l'etape courante */
-  Serial.print("Etape : ");
-  Serial.println(stageValue);
-
-  doStage(stageValue);
-  if(stageValue == WIN){
-    EEPROM.write(stageAdress,stageValue);
-    win();
-  }else{
-    lcd.clear();
-    lcd.setCursor(7,0);
-    lcd.print("Bravo !");
-    lcd.setCursor(0,2);
-    lcd.print("Enigme suivante ");
-    delay(500);
-    lcd.print(".");
-    delay(500);
-    lcd.print(".");
-    delay(500);
-    lcd.print(".");
-    delay(500);
-  }
-}
-
-
-
-
-/*
- * Etape : 1
- * But : Presentation puis Appuyer sur un bouton
- * Composant mis en jeu : - bouton
- * Pins mis en jeu: - simpleButtonPin
- */
-void win(){
-  lcd.clear();
-  lcd.setCursor(7,1);
-  lcd.print("WIN!");
-  
-  while(1){
-    delay(500);
-    Serial.println("WIN");
-  }
-  
-}

@@ -1,5 +1,7 @@
 #include "Menu.h"
 #include "XInput.h"
+#include <EEPROM.h>
+#include "stages.h"
 
 const int nbMenuItems = 3;
 const char* menuItems[] = {"Jouer", "Reset","Statistiques"};
@@ -67,6 +69,46 @@ void mainMenu(){
 }
 
 void doPlay(){
+  stayInThisStage = true; /* on repasse forcement a true pour le prochaine appel aune etape */
+  /*on compare la nouvelle valeur avec l'eeprom si changement on ecrit dans l'epprom */
+  tmpStageValue = EEPROM.read(stageAdress);
+  if(stageValue < tmpStageValue ){
+    stageValue = tmpStageValue;
+  }else if (stageValue != tmpStageValue){
+    EEPROM.write(stageAdress,stageValue);
+  }
+
+  Serial.print("Stage value : ");
+  Serial.println(stageValue);
+  
+  /* on renvoie sur la fonction gerant l'etape courante */
+  Serial.print("Etape : ");
+  Serial.println(stageValue);
+
+  if(doStage(stageValue)){
+    stageValue++;
+    mel.playMelody(sucessStageMel,sucessStageDuration);
+  }else{
+    return ;
+  }
+  if(stageValue == NB_STAGE+1){
+    EEPROM.write(stageAdress,stageValue);
+    win();
+  }else{
+    lcd.clear();
+    lcd.setCursor(7,0);
+    lcd.print("Bravo !");
+    lcd.setCursor(0,2);
+    lcd.print("Enigme suivante ");
+    delay(500);
+    lcd.print(".");
+    delay(500);
+    lcd.print(".");
+    delay(500);
+    lcd.print(".");
+    delay(500);
+  }
+
   
 }
 void doStats(){
