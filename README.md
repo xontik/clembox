@@ -9,4 +9,7 @@ Mon projet de boite à enigmes à base d'arduino
  - voire ou faire des return 
  - faire fct openview
  - faire fct open
+ - renomer input en push button
+ - faire class potentiometre
+ 
  

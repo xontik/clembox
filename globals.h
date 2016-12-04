@@ -17,6 +17,7 @@ extern byte lightSensorPin;
 
 /* output Pins */
 extern byte piezoMelodyPin;
+extern byte relayOpenPin;
 /* EEPROM */
 /*
  * 2 -> sound adress

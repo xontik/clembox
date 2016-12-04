@@ -6,6 +6,7 @@ byte lightSensorPin = A1;
 
 /* output Pins */
 byte piezoMelodyPin = 48;
+byte relayOpenPin = 2;
 /* EEPROM */
 /*
  * 2 -> sound adress
@@ -28,10 +29,10 @@ bool stayInThisStage = true;
 
 LiquidCrystal_I2C lcd(0x27,20,4); 
 /* Custom char*/
-byte rightArrow[] = {B00000,B00100,B00010,B11111,B00010,B00100,B00000};
-byte leftArrow[] = {B00000,B00100,B01000,B11111,B01000,B00100,B00000};
-byte upArrow[] = {B00100,B01110,B10101,B00100,B00100,B00100,B00000};
-byte downArrow[] = {B00000,B00100,B00100,B00100,B10101,B01110,B00100};
+byte rightArrow[] = {B00000,B00100,B00010,B11111,B00010,B00100,B00000,B00000};
+byte leftArrow[] = {B00000,B00100,B01000,B11111,B01000,B00100,B00000,B00000};
+byte upArrow[] = {B00100,B01110,B10101,B00100,B00100,B00100,B00000,B00000};
+byte downArrow[] = {B00000,B00100,B00100,B00100,B10101,B01110,B00100,B00000};
 
 /* Melodys */
 int sucessStageMel[] = {NOTE_F4,NOTE_FS4,NOTE_G4,NOTE_GS4,NOTE_END};

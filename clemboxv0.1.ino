@@ -1,4 +1,6 @@
-#include <Streaming.h>
+
+
+//#include <Streaming.h>
 #include "globals.h"
 #include "Melody.h"
 #include "XInput.h"
@@ -16,6 +18,8 @@ void setup() {
   
   /* Initialisation des pin --------------------------------------*/
   pinMode(resetStagePin,INPUT);
+  pinMode(relayOpenPin,OUTPUT);
+  digitalWrite(relayOpenPin,HIGH);
   /* Initialisation des composant --------------------------------------*/
   /* Serial ------------------------------------------------------------*/
   Serial.begin(9600);

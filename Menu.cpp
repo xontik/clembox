@@ -20,18 +20,20 @@ void displayMenu(int choice){
 
 }
 void doMainMenu(int choice){
+  Serial.println("domainmenu");
+  Serial.println(choice);
   switch(choice){
     case 1:
-      void doPlay();
+      doPlay();
       break;
     case 2:
-      void doReset();
+      doReset();
       break;
     case 3:
-      void doToggleAudio();
+      doToggleAudio();
       break;
     case 4:
-      void doStats();
+      doStats();
       break;
   }
 }
@@ -42,7 +44,9 @@ void mainMenu(){
   while(keephere){
     displayMenu(choice);
     // Wait relache boutons 
+    Serial.println("Wait a button");
     button = input.buttonPushed();
+    Serial.println("Un button a ete pushed");
     //gestions des differents cas
     switch(button){
       case BT_UP:
@@ -69,6 +73,7 @@ void mainMenu(){
 }
 
 void doPlay(){
+  Serial.println("doPlay");
   stayInThisStage = true; /* on repasse forcement a true pour le prochaine appel aune etape */
   /*on compare la nouvelle valeur avec l'eeprom si changement on ecrit dans l'epprom */
   tmpStageValue = EEPROM.read(stageAdress);

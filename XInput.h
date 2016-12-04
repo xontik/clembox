@@ -25,7 +25,6 @@ class XInput{
     void printButtons();
   private:
     XButton *_buttons;
-    int _nbButtons;
     
 };
 extern XInput input;

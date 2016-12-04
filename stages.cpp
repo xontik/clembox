@@ -52,16 +52,22 @@ void win(){
   lcd.clear();
   lcd.setCursor(7,1);
   lcd.print("WIN!");
+ 
   
   while(1){
     delay(500);
     Serial.println("WIN");
+    if(input.buttonPushed()==BT_VALID){
+      digitalWrite(relayOpenPin,LOW);
+      delay(2000);
+      digitalWrite(relayOpenPin,HIGH);
+    }
   }
   
 }
 
 
 bool doStage(int v){
-  //ici mettre un while pour checker les bouton tout du long
-  stageTab[v-1]
+  Serial.println("doSTage");
+  win();
 }
