@@ -74,52 +74,53 @@ void mainMenu(){
 
 void doPlay(){
   Serial.println("doPlay");
-  stayInThisStage = true; /* on repasse forcement a true pour le prochaine appel aune etape */
-  /*on compare la nouvelle valeur avec l'eeprom si changement on ecrit dans l'epprom */
-  tmpStageValue = EEPROM.read(stageAdress);
-  if(stageValue < tmpStageValue ){
-    stageValue = tmpStageValue;
-  }else if (stageValue != tmpStageValue){
-    EEPROM.write(stageAdress,stageValue);
-  }
 
-  Serial.print("Stage value : ");
-  Serial.println(stageValue);
+  while(1){
+    tmpStageValue = EEPROM.read(stageAdress);
+    if(stageValue < tmpStageValue ){
+      stageValue = tmpStageValue;
+    }else if (stageValue != tmpStageValue){
+      EEPROM.write(stageAdress,stageValue);
+    }
   
-  /* on renvoie sur la fonction gerant l'etape courante */
-  Serial.print("Etape : ");
-  Serial.println(stageValue);
-
-  if(doStage(stageValue)){
-    stageValue++;
-    mel.playMelody(sucessStageMel,sucessStageDuration);
-  }else{
-    return ;
+    Serial.print("Stage value : ");
+    Serial.println(stageValue);
+    
+    /* on renvoie sur la fonction gerant l'etape courante */
+  
+    if(doStage(stageValue)){
+      stageValue++;
+      mel.playMelody(sucessStageMel,sucessStageDuration);
+    }else{
+      return;
+    }
+    
+      lcd.clear();
+      lcd.setCursor(7,0);
+      lcd.print("Bravo !");
+      lcd.setCursor(0,2);
+      lcd.print("Enigme suivante ");
+      delay(500);
+      lcd.print(".");
+      delay(500);
+      lcd.print(".");
+      delay(500);
+      lcd.print(".");
+      delay(500);
+    
   }
-  if(stageValue == NB_STAGE+1){
-    EEPROM.write(stageAdress,stageValue);
-    win();
-  }else{
-    lcd.clear();
-    lcd.setCursor(7,0);
-    lcd.print("Bravo !");
-    lcd.setCursor(0,2);
-    lcd.print("Enigme suivante ");
-    delay(500);
-    lcd.print(".");
-    delay(500);
-    lcd.print(".");
-    delay(500);
-    lcd.print(".");
-    delay(500);
-  }
-
   
 }
 void doStats(){
   
 }
 void doReset(){
+    lcd.clear();
+    lcd.print("Reseted !!");
+    stageValue = START;
+    EEPROM.write(stageAdress,stageValue);
+    Serial.println("Stages Reseted");
+    delay(1000);
   
 }
 void doToggleAudio(){

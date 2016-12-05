@@ -5,11 +5,11 @@
 #include "globals.h"
 #include "XInput.h"
 #include "Melody.h"
-void stage1();
-void stage2();
+bool stage1();
+bool stage2();
 void win();
 
 bool doStage(int v);
 
-extern void (*stageTab[NB_STAGE])();
+extern bool (*stageTab[NB_STAGE])();
 #endif

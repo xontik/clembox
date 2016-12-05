@@ -34,13 +34,8 @@ void setup() {
   lcd.createChar(ARROW_UP,upArrow);
   lcd.createChar(ARROW_DOWN,downArrow);
   /* EEPROM --------------------------------------*/
-  if(digitalRead(resetStagePin) == HIGH){
-    stageValue = START;
-    EEPROM.write(stageAdress,stageValue);
-    Serial.println("Stages Reseted");
-  }else{
-    stageValue = EEPROM.read(stageAdress);
-  }
+  stageValue = EEPROM.read(stageAdress);
+  
   //mel.setMuteMode(EEPROM.read(soundAdress));
   mel.muteOff();
   /* beep de debut --------------------------------------*/

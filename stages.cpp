@@ -1,21 +1,23 @@
 #include "stages.h"
 
-void (*stageTab[2])() = {stage1,stage2};
+bool (*stageTab[2])() = {stage1,stage2};
 
-void stage1(){
-  
+bool stage1(){
 
+  XButtonId button;
   lcd.clear();
   lcd.setCursor(0,0);
-  lcd.print("Trouve le mega bouton !");
+  lcd.print("Trouve le bon bouton !");
   lcd.setCursor(0,2);
   lcd.print("Et appuie dessus !");
-  while(stayInThisStage){
-      if(input.readButtons() == BT_VALID)
-        stayInThisStage = false;
-      
-      
+  button = BT_NONE;
+  while( button != BT_LEFT){
+    button = input.buttonPushed();
+    if(button == BT_VALID){
+      return false;
+    }
   }
+  return true;
   
 }
 /*
@@ -25,9 +27,9 @@ void stage1(){
  * Pins mis en jeu: - lumresitancepin
  */
 
-void stage2(){
+bool stage2(){
   int lightSensorValue;
-
+  XButtonId button;
   lcd.clear();
   lcd.setCursor(0,0);
   lcd.print("La levitation est...");
@@ -36,15 +38,19 @@ void stage2(){
   lcd.setCursor(0,3);
   lcd.print("(A faire de jour !)");
   
-  while(stayInThisStage){
+ 
+  button = BT_NONE;
+  while(button != BT_VALID){     
      lightSensorValue = analogRead(lightSensorPin);
      Serial.print("Sensor value:");
      Serial.println(lightSensorValue);
-     if(lightSensorValue >= 600){
-        stayInThisStage = false;
+     if(lightSensorValue >= 5){
+        return true;
      }
+     button = input.lastButtonPushed();
     delay(100);
   }
+  return false;
 
   
 }
@@ -55,19 +61,32 @@ void win(){
  
   
   while(1){
-    delay(500);
+    
     Serial.println("WIN");
-    if(input.buttonPushed()==BT_VALID){
+    if(input.buttonPushed()!=BT_VALID){
       digitalWrite(relayOpenPin,LOW);
       delay(2000);
       digitalWrite(relayOpenPin,HIGH);
+      
+    }
+    else{
+      return;
     }
   }
+ 
   
 }
 
 
 bool doStage(int v){
-  Serial.println("doSTage");
-  win();
+  Serial.println("doStage");
+  if(v == NB_STAGE+1){
+      win();
+      //stageValue = START;
+      //EEPROM.write(stageAdress,stageValue);
+      return false;
+   }else{
+    return stageTab[v-1]();
+   }
+  
 }
