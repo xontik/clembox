@@ -8,6 +8,7 @@ Melody::Melody(unsigned int pin, bool mute){
   _muteMode = mute;
   _pin = pin;
   pinMode(_pin,OUTPUT);
+  
 }
 
 void Melody::playMelody(int* note, int* duration){
@@ -28,6 +29,7 @@ void Melody::playMelody(int* note, int* duration){
 }
 void Melody::muteOn(){
   _muteMode = true;
+
 }
 void Melody::muteOff(){
   _muteMode = false;
@@ -36,3 +38,5 @@ void Melody::muteOff(){
 void Melody::setMuteMode(bool mode){
     _muteMode = mode;
 }
+
+Melody mel(piezoMelodyPin,true);

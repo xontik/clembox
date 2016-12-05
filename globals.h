@@ -1,15 +1,23 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
-#include "Melody.h"
+#include "notes.h"
 #include "Arduino.h"
-#include "XMenu.h"
-#include "XInput.h"
 #include <LiquidCrystal_I2C.h> 
+
+#define WIN 3
+#define START 1
+
+#define ARROW_UP 2
+#define ARROW_DOWN 3
+#define ARROW_LEFT 1
+#define ARROW_RIGHT 0
+
 /* input Pins */
 extern byte lightSensorPin;
 
 /* output Pins */
 extern byte piezoMelodyPin;
+extern byte relayOpenPin;
 /* EEPROM */
 /*
  * 2 -> sound adress
@@ -30,7 +38,7 @@ extern byte tmpStageValue;
 extern byte stageValue;
 extern bool stayInThisStage;
 /* buttons */
-extern XButton buttons[];
+
 /* Custom char*/
 extern byte rightArrow[];
 extern byte leftArrow[] ;
@@ -50,15 +58,11 @@ extern void doPlayMenu(uint8_t selected);
 extern void doStatsMenu(uint8_t selected);
 extern void doOptionsMenu(uint8_t selected);
 
-extern const char* mainMenuItems[];
-extern const XMenu mainMenu;
-extern const char* playMenuItems[];
-extern const XMenu playMenu;
-extern const char* statsMenuItems[];
-extern const XMenu statsMenu;
-extern const char* optionsMenuItems[];
-extern const XMenu optionsMenu;
 
-extern void doMenu(XMenu menu);
+
+
+
+
+extern LiquidCrystal_I2C lcd; 
 #endif
 

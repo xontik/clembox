@@ -2,15 +2,12 @@
 #include <Arduino.h>
 
 XInput::XInput(XButton* b){
-  
-  this->_buttons = b;  
-}
-void XInput::begin(){
   int i=0;
   while(_buttons[i].pin != -1){
     pinMode(_buttons[i].pin, INPUT);
     i++;
   }
+  this->_buttons = b; 
 }
 void XInput::printButtons(){
   Serial.print("Buttons states at");
@@ -24,14 +21,34 @@ void XInput::printButtons(){
 XButtonId XInput::buttonPushed(){
   XButtonId btn;
     while (readButtons() != BT_NONE);
+    Serial.println("All button of");
     
     // Attente appuie btn 
-    while ((btn = readButtons()) == BT_NONE);
+    btn = BT_NONE;
+    while (btn == BT_NONE){
+      
+      btn = readButtons();
+      
+    }
+    Serial.println("On button pushed");
     
     delay(30);
     //Fin anti rebons 
     // Attente relache tout les boutons
     while (readButtons() != BT_NONE);
+    return btn;
+}
+XButtonId XInput::lastButtonPushed(){
+    XButtonId btn;
+    
+    btn = readButtons();
+
+    Serial.println("On button pushed");
+    
+    delay(30);
+    //Fin anti rebons 
+    // Attente relache tout les boutons
+    
     return btn;
 }
 XButtonId XInput::readButtons(){
@@ -49,13 +66,17 @@ XButtonId XInput::readButtons(){
       
   }
   else{
-    for(i=0;i<_nbButtons;i++){
+    
+    i=0;
+    while(this->_buttons[i].pin != -1){
       if(digitalRead(this->_buttons[i].pin)){
         nbTrue++;
         b=this->_buttons[i].id;
         Serial.print("Button pin : ");
         Serial.println(this->_buttons[i].pin);
+        
       }
+      i++;
     }
     if(nbTrue != 1){
       return BT_NONE;
@@ -65,4 +86,13 @@ XButtonId XInput::readButtons(){
   }
 
 }
-
+XButton buttons[] = {
+  {24,BT_UP},
+  {25,BT_DOWN},
+  {23,BT_LEFT},
+  {22,BT_RIGHT},
+  {27,BT_VALID},
+  {-1,BT_NONE}
+  
+  };
+XInput input(buttons);
