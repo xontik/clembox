@@ -1,6 +1,6 @@
 #include "stages.h"
 
-bool (*stageTab[2])() = {stage1,stage2};
+bool (*stageTab[3])() = {stage1,stage2,stage3};
 
 bool stage1(){
 
@@ -49,6 +49,29 @@ bool stage2(){
      }
      button = input.lastButtonPushed();
     delay(100);
+  }
+  return false;
+
+  
+}
+bool stage3(){
+  int val1,val2,val3;
+  
+  XButtonId button;
+  lcd.clear();
+  lcd.print("Atteinds le bon nombre :");
+  
+  
+  button = BT_NONE;
+  while(button != BT_VALID){     
+     
+     
+     val1 = analogRead(pot1);    
+     val2 = analogRead(pot2);    
+     val3 = analogRead(pot3);
+     lcd.setCursor(0,2);
+     lcd.print("d");
+     button = input.lastButtonPushed();
   }
   return false;
 

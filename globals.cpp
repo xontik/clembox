@@ -3,7 +3,9 @@
 
 /* input Pins */
 byte lightSensorPin = A1;
-
+byte pot1 = A2;
+byte pot2 = A3;
+byte pot3 = A4;
 /* output Pins */
 byte piezoMelodyPin = 48;
 byte relayOpenPin = 2;

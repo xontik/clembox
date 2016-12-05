@@ -4,8 +4,8 @@
 #include "Arduino.h"
 #include <LiquidCrystal_I2C.h> 
 
-#define WIN 3
-#define START 1
+
+
 
 #define ARROW_UP 2
 #define ARROW_DOWN 3
@@ -14,6 +14,7 @@
 
 /* input Pins */
 extern byte lightSensorPin;
+extern byte pot1,pot2,pot3;
 
 /* output Pins */
 extern byte piezoMelodyPin;
