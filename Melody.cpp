@@ -2,6 +2,7 @@
 #include <Arduino.h>
 Melody::Melody(unsigned int pin){
   _pin = pin;
+  _muteMode = false;
   pinMode(_pin,OUTPUT);
 }
 Melody::Melody(unsigned int pin, bool mute){
@@ -39,4 +40,4 @@ void Melody::setMuteMode(bool mode){
     _muteMode = mode;
 }
 
-Melody mel(piezoMelodyPin,true);
+Melody mel(piezoMelodyPin);

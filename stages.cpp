@@ -41,10 +41,8 @@ bool stage2(){
  
   button = BT_NONE;
   while(button != BT_VALID){     
-     lightSensorValue = analogRead(lightSensorPin);
-     Serial.print("Sensor value:");
-     Serial.println(lightSensorValue);
-     if(lightSensorValue >= 5){
+     
+     if(getLight(bottomLightSensor1) >= LOW_LIGHT){
         return true;
      }
      button = input.lastButtonPushed();
@@ -66,9 +64,9 @@ bool stage3(){
   while(button != BT_VALID){     
      
      
-     val1 = analogRead(pot1);    
-     val2 = analogRead(pot2);    
-     val3 = analogRead(pot3);
+     val1 = analogRead(leftPotLeft);    
+     val2 = analogRead(leftPotMid);    
+     val3 = analogRead(leftPotRight);
      lcd.setCursor(0,2);
      lcd.print("d");
      button = input.lastButtonPushed();

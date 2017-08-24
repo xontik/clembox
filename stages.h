@@ -2,11 +2,12 @@
 #define STAGE_H
 
 #define START 1
-#define NB_STAGE 2
+#define NB_STAGE 3
 
 #include "globals.h"
 #include "XInput.h"
 #include "Melody.h"
+#include "lightSensor.h"
 
 bool stage1();
 bool stage2();

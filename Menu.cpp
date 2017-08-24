@@ -20,7 +20,7 @@ void displayMenu(int choice){
 
 }
 void doMainMenu(int choice){
-  Serial.println("domainmenu");
+  Serial.print("domainmenu avec choix : ");
   Serial.println(choice);
   switch(choice){
     case 1:
@@ -43,11 +43,9 @@ void mainMenu(){
   bool keephere = true;
   while(keephere){
     displayMenu(choice);
-    // Wait relache boutons 
-    Serial.println("Wait a button");
+    
     button = input.buttonPushed();
-    Serial.println("Un button a ete pushed");
-    //gestions des differents cas
+    
     switch(button){
       case BT_UP:
         choice++;

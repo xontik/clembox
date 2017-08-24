@@ -11,15 +11,18 @@
 #include <Wire.h> 
 #include <LiquidCrystal_I2C.h>
 
-
+//#define TESTSTAGE
 
 
 void setup() {
   
   /* Initialisation des pin --------------------------------------*/
-  pinMode(resetStagePin,INPUT);
+  //OUTPUT
   pinMode(relayOpenPin,OUTPUT);
-  digitalWrite(relayOpenPin,HIGH);
+  pinMode(piezoMelodyPin,OUTPUT);
+  //INPUT
+  pinMode(usbKeyPresenceCheck,INPUT);
+  
   /* Initialisation des composant --------------------------------------*/
   /* Serial ------------------------------------------------------------*/
   Serial.begin(9600);
@@ -36,11 +39,11 @@ void setup() {
   /* EEPROM --------------------------------------*/
   stageValue = EEPROM.read(stageAdress);
   
-  //mel.setMuteMode(EEPROM.read(soundAdress));
-  mel.muteOff();
-  /* beep de debut --------------------------------------*/
+  /* RELAYS ---------------------*/
+  digitalWrite(relayOpenPin,HIGH);
+  
+  /* Sequence allumage --------------------------------------*/
   mel.playMelody(startMel,startDuration);
-  /* value de depart --------------------------------------*/
   lcd.setCursor(5,0);
   lcd.print("Bienvenue !");
   delay(1000);

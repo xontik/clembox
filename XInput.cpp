@@ -39,16 +39,9 @@ XButtonId XInput::buttonPushed(){
     return btn;
 }
 XButtonId XInput::lastButtonPushed(){
-    XButtonId btn;
-    
+ XButtonId btn = BT_NONE;
     btn = readButtons();
-
-    Serial.println("On button pushed");
-    
     delay(30);
-    //Fin anti rebons 
-    // Attente relache tout les boutons
-    
     return btn;
 }
 XButtonId XInput::readButtons(){
@@ -91,7 +84,7 @@ XButton buttons[] = {
   {25,BT_DOWN},
   {23,BT_LEFT},
   {22,BT_RIGHT},
-  {27,BT_VALID},
+  {26,BT_VALID},
   {-1,BT_NONE}
   
   };

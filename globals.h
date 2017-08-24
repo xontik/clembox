@@ -3,6 +3,7 @@
 #include "notes.h"
 #include "Arduino.h"
 #include <LiquidCrystal_I2C.h> 
+#include <OneWire.h>
 
 
 
@@ -13,9 +14,9 @@
 #define ARROW_RIGHT 0
 
 /* input Pins */
-extern byte lightSensorPin;
-extern byte pot1,pot2,pot3;
-
+extern byte bottomLightSensor1;
+extern byte leftPotLeft,leftPotMid,leftPotRight;
+extern byte usbKeyPresenceCheck;
 /* output Pins */
 extern byte piezoMelodyPin;
 extern byte relayOpenPin;

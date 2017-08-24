@@ -2,22 +2,24 @@
 #include "Arduino.h"
 
 /* input Pins */
-byte lightSensorPin = A1;
-byte pot1 = A2;
-byte pot2 = A3;
-byte pot3 = A4;
+byte bottomLightSensor1 = A0;
+byte leftPotLeft = A1;
+byte leftPotMid = A2;
+byte leftPotRight = A3;
+
+byte usbKeyPresenceCheck = 49;
+
 /* output Pins */
-byte piezoMelodyPin = 48;
-byte relayOpenPin = 2;
+byte piezoMelodyPin = 12;
+byte relayOpenPin = 27;
+
 /* EEPROM */
 /*
  * 2 -> sound adress
  * 5 -> partie 1
- * 11 -> adress partie courante
- * -1 veut dire pas de partie enregistrer
+
  */
-/* reset EEPROM Pin */
-byte resetStagePin = 22;
+
 
 /* EEPROM Variable */
 
@@ -27,7 +29,6 @@ byte tmpStageValue;
 byte stageValue;
 bool stayInThisStage = true;
 /* buttons */
-
 
 LiquidCrystal_I2C lcd(0x27,20,4); 
 /* Custom char*/
