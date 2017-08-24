@@ -13,10 +13,18 @@
 #define ARROW_LEFT 1
 #define ARROW_RIGHT 0
 
-/* input Pins */
+/* sensors */
+
 extern byte bottomLightSensor1;
 extern byte leftPotLeft,leftPotMid,leftPotRight;
+
 extern byte usbKeyPresenceCheck;
+extern byte frontBtnUp;
+extern byte frontBtnDown;
+extern byte frontBtnLeft;
+extern byte frontBtnRight;
+extern byte frontBtnRed;
+
 /* output Pins */
 extern byte piezoMelodyPin;
 extern byte relayOpenPin;

@@ -22,13 +22,21 @@ void setup() {
   pinMode(piezoMelodyPin,OUTPUT);
   //INPUT
   pinMode(usbKeyPresenceCheck,INPUT);
+  pinMode(frontBtnUp,INPUT);
+  pinMode(frontBtnDown,INPUT);
+  pinMode(frontBtnLeft,INPUT);
+  pinMode(frontBtnRight,INPUT);
+  pinMode(frontBtnRed,INPUT);  
+
+
+  
   
   /* Initialisation des composant --------------------------------------*/
   /* Serial ------------------------------------------------------------*/
   Serial.begin(9600);
   Serial.setTimeout(0);
   Serial.println("<-- Power on ! -->");
-
+  
   /* LCD --------------------------------------*/
   lcd.begin();
   lcd.backlight();

@@ -3,30 +3,19 @@
 #include <Arduino.h>
 #include "globals.h"
 
-typedef enum {
-  BT_UP,
-  BT_DOWN,
-  BT_LEFT,
-  BT_RIGHT,
-  BT_VALID,
-  BT_NONE
-} XButtonId;
 
-typedef struct {
-  int pin;
-  XButtonId id;
-} XButton;
+
 
 class XInput{
   public:
-    XInput(XButton but[]);
-    XButtonId readButtons(void);
-    XButtonId buttonPushed(void);
-    XButtonId XInput::lastButtonPushed(void);
+    XInput(byte but[]);
+    byte readButtons(void);
+    byte buttonPushed(void);
+    byte lastButtonPushed(void);
 
     void printButtons();
   private:
-    XButton *_buttons;
+    byte *_buttons;
     
 };
 extern XInput input;

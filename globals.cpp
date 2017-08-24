@@ -1,13 +1,19 @@
 #include "globals.h"
 #include "Arduino.h"
 
-/* input Pins */
+/* Sensors */
 byte bottomLightSensor1 = A0;
 byte leftPotLeft = A1;
 byte leftPotMid = A2;
 byte leftPotRight = A3;
 
 byte usbKeyPresenceCheck = 49;
+byte frontBtnUp = 24;
+byte frontBtnDown = 25;
+byte frontBtnLeft = 23;
+byte frontBtnRight = 22;
+byte frontBtnRed = 26;
+
 
 /* output Pins */
 byte piezoMelodyPin = 12;
